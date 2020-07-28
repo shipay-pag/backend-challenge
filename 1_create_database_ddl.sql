@@ -9,7 +9,7 @@ CREATE TABLE roles (
 --===>>> Claims:
 CREATE TABLE claims (
 	id int8 NOT NULL GENERATED ALWAYS AS IDENTITY,
-	decription varchar NOT NULL,
+	description varchar NOT NULL,
 	active bool NOT NULL DEFAULT true,
 	CONSTRAINT claims_pk PRIMARY KEY (id)
 );
