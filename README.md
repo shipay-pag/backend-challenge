@@ -12,23 +12,11 @@
 
 5.- Crie uma documentação que explique como executar seu projeto em ambiente local e também como deverá ser realizado o ‘deploy’ em ambiente produtivo.
 
-***Para a próxima questão, item 6.2 apesar da 'stack trace' apresentada ser em Python, o erro é genérico e pode ocorrer com qualquer outra linguagem.***
+***Para a próxima questão (a de número 6) apesar da 'stack trace' apresentada ser em Python, o erro é genérico e pode ocorrer com qualquer outra linguagem.***
 
 6.- Nossos analistas de qualidade reportaram uma falha que só acontece em ambientes diferentes do local/desenvolvimento, os engenheiros responsáveis pelo ambiente de Homologação já descartaram problemas de infra-estrutura, temos que levantar o que está acontecendo.
 
-Executei o seguinte comando para listar os Pods no referido ambiente e obtive a seguinte listagem:  
-
-dev@op_station ~ % kubectl get pods -n staging                               
-NAME                           READY   STATUS    RESTARTS   AGE
-auth-api-5894b78f8d-6v8t8      1/1     Running     0        2d6h
-order-api-6d678679bb-rsdbq     1/1     Running     0        2d5h
-jobs-77f78ccf9b-7jpct          1/1     Running     0        2d6h
-db-5cd794b547-xx5b8            1/1     Running     0        4d6h
-
-6.1- Qual comando posso utilizar para listar os logs (no stdio) do Pod de Jobs?
-
-
-Ao executar o comando que você me passou, capturei o seguinte registro de log:
+Ao executar o comando para listar os logs (no stdio) do Pod de Jobs, capturei o seguinte registro de log:
 
 [2020-07-06 20:24:49,781: INFO/ForkPoolWorker-2] [expire_orders] - Finishing job…
 
@@ -49,7 +37,7 @@ AttributeError: module 'core.settings' has no attribute ‘WALLET_X_TOKEN_MAX_AG
 [2020-07-66 20:34:49,801: INFO/ForkPoolWorker-2] [expire_orders] - Filtering pending operations older than 10 minutes ago.
 
 
-6.2- De acordo com o log capturado, o que pode estar originando a falha?
+***De acordo com o log capturado, o que pode estar originando a falha?***
 
 
 7.- Ajude-nos fazendo o ‘Code Review’ do código de um robô/rotina que exporta os dados da tabela “users” de tempos em tempos. O código foi disponibilizado no mesmo repositório do git hub dentro da pasta “bot”. ***ATENÇÃO: Não é necessário implementar as revisões, basta apenas anota-las em um arquivo texto ou em forma de comentários no código.***
