@@ -1,3 +1,18 @@
+"""
+Este trecho de código configura a conexão com o banco de dados e cria as tabelas.
+
+Constantes:
+    - DATABASE_HOST: Nome de host do banco de dados.
+    - DATABASE_NAME: Nome do banco de dados.
+    - DATABASE_USER: Nome de usuário do banco de dados.
+    - DATABASE_PASS: Senha do banco de dados.
+    - SQLALCHEMY_DATABASE_URL: URL de conexão com o banco de dados.
+
+Variáveis:
+    - Base: Classe base declarativa do SQLAlchemy.
+    - engine: Objeto de conexão com o banco de dados.
+
+"""
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base

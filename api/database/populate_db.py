@@ -74,7 +74,8 @@ def assign_user_claims():
         user_claims = user.claims  # Claims já existentes para o usuário
 
         # IDs das Claims existentes
-        existing_claim_ids = {uc.claim_id for uc in user_claims} # Utilizando Set's para chaves únicas
+        # Utilizando Set's para chaves únicas
+        existing_claim_ids = {uc.claim_id for uc in user_claims}
 
         for _ in range(num_claims):
             claim = choice(claims)
