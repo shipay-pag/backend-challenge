@@ -19,7 +19,7 @@ class UserRepository(DBSessionContext):
             user = session.query(User).options(joinedload(User.role)
                                                ).filter(User.id == user_id).first()
 
-            return obj_to_dict(user.role) if user.role else None
+            return obj_to_dict(user.role) if getattr(user, 'role', None) else None
 
     def get_user_by_email(self, email: str) -> dict:
         """
