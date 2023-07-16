@@ -59,6 +59,44 @@ Siga as etapas abaixo para executar o projeto em ambiente local:
 6. O servidor de desenvolvimento será iniciado em `http://localhost:8003`, ele está configurado para ser atualizado sempre que o código for utilizado.
 Você pode acessar a documentação da API em `http://localhost:8003/docs` e testar os endpoints disponíveis.
 
+## Executando os testes da aplicação
+Para executar os testes, caso esteja usando o `VSCODE` crie o seguinte arquivo de configuração de execução, este arquivo te auxiliará tanto para inicializar a `api` através do arquivo `main.py` como também para executar os testes.
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Arquivo Atual",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${fileDirname}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "PyTest: Arquivo Atual",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "module": "pytest",
+            "args": [
+                "${file}"
+            ],
+            "cwd": "${fileDirname}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        }
+    ]
+}
+```
+
+Após criação do arquivo de execução `launch.json`, navegue até o diretório `api/tests`, selecione o arquivo de test que deseja executar ***(exemplo: test_users)*** e basta pressionar `F5`.
 
 ## Implantação em Ambiente de Produção (AWS)
 

@@ -8,6 +8,7 @@ from api.database.session import DBSessionContext
 from api.database.models import User
 from api.helpers.helpers import obj_to_dict
 from sqlalchemy.orm import joinedload
+from sqlalchemy.sql.expression import func
 
 
 class UserRepository(DBSessionContext):
@@ -43,3 +44,12 @@ class UserRepository(DBSessionContext):
             )
 
             session.add(user)
+
+    def get_random_user(self) -> dict:
+        """
+        Obtém um usuário aleatório do banco de dados.
+        """
+        with self.get_session_scope() as session:
+            user = session.query(User).order_by(func.random()).first()
+
+            return obj_to_dict(user) if user else None
