@@ -1,0 +1,33 @@
+# Virtual Environment
+venv/
+env/
+
+# Ignore database and log files
+*.db
+*.log
+
+# Ignore compiled Python files
+__pycache__/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore pycache directories
+**/__pycache__/
+
+# Ignore Excel files
+*.xlsx
+
+# Ignore config files
+config.ini
+
+.pytest_cache/
+# Ignore .env file
+.env
+
+# Ignore other environment-specific files
+.env.local
+.env.development
+.env.test
+.env.production
