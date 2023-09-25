@@ -1,47 +1,124 @@
 # Shipay Back-end Challenge
 
-***Nota: Utilizaremos os seguintes critérios para a avaliação: Desempenho, Testes, Manutenabilidade, Separação de responsabilidades e boas práticas de engenharia de software.***
+This project is a solution to the Shipay Back-end Challenge. It includes SQL queries, REST APIs, troubleshooting, code review, and design pattern discussion.
 
-1.- Tomando como base a estrutura do banco de dados fornecida (conforme diagrama [ER_diagram.png] e/ou script DDL [1_create_database_ddl.sql], disponibilizados no repositório do github): Construa uma consulta SQL que retorne o nome, e-mail, a descrição do papel e as descrições das permissões/claims que um usuário possui.
+## Table of Contents
 
-2.- Utilizando a mesma estrutura do banco de dados da questão anterior, rescreva a consulta anterior utilizando um ORM (Object Relational Mapping) de sua preferência utilizando a query language padrão do ORM adotado (ex.: Spring JOOQ, EEF LINQ, SQL Alchemy Expression Language, etc).
+- [Installation](#installation)
+- [Running Locally](#running-locally)
+- [API Endpoints](#api-endpoints)
+- [Task1](#Task1)
+- [Task2](#Task2)
+- [Task3](#Task_3)
+- [Task4](#Task_4)
+- [Task5](#Task_5)
+- [Task6](#Task_6)
+- [Task7](#Task_7)
+- [Task8](#Task8)
 
-3.- Utilizando a mesma estrutura do banco de dados fornecida anteriormente, e a linguagem que desejar, construa uma API REST que irá listar o papel de um usuário pelo “Id” (role_id).
-
-4.- Utilizando a mesma estrutura do banco de dados fornecida anteriormente, e a linguagem que desejar, construa uma API REST que irá criar um usuário. Os campos obrigatórios serão nome, e-mail e papel do usuário. A senha será um campo opcional, caso o usuário não informe uma senha o serviço da API deverá gerar essa senha automaticamente.
-
-5.- Crie uma documentação que explique como executar seu projeto em ambiente local e também como deverá ser realizado o ‘deploy’ em ambiente produtivo.
-
-***Para a próxima questão (a de número 6) apesar da 'stack trace' apresentada ser em Python, o erro é genérico e pode ocorrer com qualquer outra linguagem.***
-
-6.- Nossos analistas de qualidade reportaram uma falha que só acontece em ambientes diferentes do local/desenvolvimento, os engenheiros responsáveis pelo ambiente de Homologação já descartaram problemas de infra-estrutura, temos que levantar o que está acontecendo.
-
-Ao executar o comando para listar os logs (no stdio) do Pod de Jobs, capturei o seguinte registro de log:
-
-[2020-07-06 20:24:49,781: INFO/ForkPoolWorker-2] [expire_orders] - Finishing job…
-
-[2020-07-06 20:34:49,721: INFO/ForkPoolWorker-1] [renew_wallet_x_access_tokens] Starting task that renew Access Tokens from Wallet X about to expire
-
-[2020-07-06 20:34:49,723: ERROR/ForkPoolWorker-1] Task tasks.wallet_oauth.renew_wallet_x_access_tokens[ee561a2e-e837-4d98-b771-07f4e2b5ec70] raised unexpected: AttributeError("module 'core.settings' has no attribute ‘WALLET_X_TOKEN_MAX_AGE'")
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.7/site-packages/celery/app/trace.py", line 385, in trace_task
-    R = retval = fun(args, kwargs)
-  File "/usr/local/lib/python3.7/site-packages/celery/app/trace.py", line 650, in __protected_call__
-    return self.run(args, kwargs)
-  File "/opt/worker/src/tasks/wallet_oauth.py", line 15, in renew_wallet_x_access_tokens
-    expire_at = now - settings.WALLET_X_TOKEN_MAX_AGE
-AttributeError: module 'core.settings' has no attribute ‘WALLET_X_TOKEN_MAX_AGE'
-
-[2020-07-06 20:34:49,799: INFO/ForkPoolWorker-2] [expire_orders] - Starting job…
-
-[2020-07-66 20:34:49,801: INFO/ForkPoolWorker-2] [expire_orders] - Filtering pending operations older than 10 minutes ago.
+- [Contributing](#contributing)
 
 
-***De acordo com o log capturado, o que pode estar originando a falha?***
+## Installation
+
+1. Clone the project repository:
+```https://github.com/oyugirachel/backend-challenge-shipay```
+2. Navigate to the main directory ``cd backend-challenge``
+3. Install the required dependencies:
+``pip install -r requirements.txt``
+4. Configure the database connection in your application settings.
 
 
-7.- Ajude-nos fazendo o ‘Code Review’ do código de um robô/rotina que exporta os dados da tabela “users” de tempos em tempos. O código foi disponibilizado no mesmo repositório do git hub dentro da pasta “bot”. ***ATENÇÃO: Não é necessário implementar as revisões, basta apenas anota-las em um arquivo texto ou em forma de comentários no código.***
+5. Run the Flask application locally:
+``python3 app.py``
 
-8.- Qual ou quais Padrões de Projeto/Design Patterns você utilizaria para normalizar serviços de terceiros (tornar múltiplas interfaces de diferentes fornecedores uniforme), por exemplo serviços de disparos de e-mails, ou então disparos de SMS. ***ATENÇÃO: Não é necessário implementar o Design Pattern, basta descrever qual você utilizaria e por quais motivos optou pelo mesmo.***
 
-BOA SORTE!
+
+2. Install the required packages using `pip install Flask SQLAlchemy`.
+The API will be accessible locally at `http://127.0.0.1:5000/`.
+
+
+## Running Locally
+
+2. Run the Flask application using `python3 app.py`.
+
+## Task1: Building an SQL query to retrieve user information.
+This implemenation can be found in the ``user_sqlquery.py``
+
+
+
+## Task_2: Rewriting the SQL query using an ORM (Flask-SQLAlchemy).
+This implementation can be found in the ``models.py``   and further configured and broken down in the ``orm_query.py`` 
+
+
+## API Endpoints
+
+
+## Task_3: Creating API to List User's Role by ID
+The implementation of the task is found in the ``app.py``
+The Endpoint for testing the get ``user_role`` by ``user_id`` is : 
+
+``GET /api/users/{user_id}/role``
+[![Screenshot-from-2023-09-25-06-28-57.png](https://i.postimg.cc/SQgtQ5J3/Screenshot-from-2023-09-25-06-28-57.png)](https://postimg.cc/Bt1CMm5B)
+``POST /api/role``
+
+[![Screenshot-from-2023-09-25-06-29-17.png](https://i.postimg.cc/SRLSCh36/Screenshot-from-2023-09-25-06-29-17.png)](https://postimg.cc/7J6rrpxh)
+
+## Task_4: Creating API to Create User
+Endpoint: ``POST /api/users``
+[![Screenshot-from-2023-09-25-06-29-48.png](https://i.postimg.cc/9fXW9KYT/Screenshot-from-2023-09-25-06-29-48.png)](https://postimg.cc/hXwWWCwP)
+
+N/B : Use tools like Postman, insomnia or curl to interact with the REST API.
+
+
+## Testing with pytest
+For testing your code, you can use pytest. Here's a basic structure for your pytest setup:
+
+1. Install pytest: ``pip install pytest``
+
+2. Create a ``tests`` directory in your project.
+
+3. Write test functions for each API endpoint and any other critical parts of your code.
+
+4. Run pytest from the command line in your project's root directory: ``pytest``
+
+5. Ensure all tests pass successfully.
+
+## Task_6: Troubleshooting Log
+
+Based on the log provided, the error seems to be related to the attribute ``WALLET_X_TOKEN_MAX_AGE`` not being found in the ``core.settings`` module. The error message indicates that AttributeError: module ``core.settings`` has no attribute ``WALLET_X_TOKEN_MAX_AGE``.
+
+To resolve this issue, The following should be checked:
+
+Ensure that the ``core.settings`` module exists and is importable.
+Verify that the ``WALLET_X_TOKEN_MAX_AGE`` attribute is defined in the ``core.settings`` module.
+Make sure that the ``core.settings`` module is correctly imported in the ``tasks.wallet_oauth`` module where it is used.
+
+## Task_7: Code Review
+Detailed code review comments can be found in code_review.txt.
+The code lacks proper error handling and exception logging. It's recommended to catch exceptions and log them appropriately to aid in debugging and monitoring.
+
+The database connection string is hard-coded. Consider using environment variables or configuration files to manage sensitive information like database credentials.
+
+The ``greetings`` function is a nice touch for console output.
+
+The scheduling logic using ``BlockingScheduler`` seems appropriate for running periodic tasks.
+
+The ``task1`` function is responsible for exporting data to an Excel file. It's well-structured and organized.
+
+## Task_8: Design Patterns for Normalizing Third-Party Services
+Design patterns used: The Adapter Pattern
+Reasons: The Adapter Pattern allows you to create a common interface that abstracts the differences between various third-party services.
+
+For example, if you are dealing with email services from multiple providers, you can create an EmailService interface with methods like sendEmail and then create specific adapters for each email service provider (e.g., GmailAdapter, OutlookAdapter). Each adapter implements the sendEmail method according to the specific API of the corresponding email service.
+
+This approach allows you to switch between different email service providers without changing the core code of your application. It also promotes code reusability and maintainability.
+## Contributing
+
+If you would like to contribute to this project, please follow these steps:
+
+1. Fork the repository on GitHub. 
+2. Create a new branch for your feature or bug fix. 
+3. Make your changes and commit them. 
+4. Push your changes to your fork. 
+5. Create a pull request to submit your changes for review.
