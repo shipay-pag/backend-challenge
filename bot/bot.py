@@ -6,6 +6,8 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from logging.handlers import RotatingFileHandler
+from sqlalchemy import text
+
 
 def main(argv):
     greetings()
@@ -16,16 +18,19 @@ def main(argv):
     handler = RotatingFileHandler('bot.log', maxBytes=10000, backupCount=1)
     handler.setLevel(logging.INFO)
     app.logger.addHandler(handler)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:123mudar@127.0.0.1:5432/bot_db'
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/shipay'
+
     db = SQLAlchemy(app)
+
     config = configparser.ConfigParser()
-    config.read('/tmp/bot/settings/config.ini')
+    config.read('settings/config.ini')
 
     var1 = int(config.get('scheduler','IntervalInMinutes'))
     app.logger.warning('Intervalo entre as execucoes do processo: {}'.format(var1))
     scheduler = BlockingScheduler()
 
-    task1_instance = scheduler.add_job(task1(db), 'interval', id='task1_job', minutes=var1)
+    task1_instance = scheduler.add_job(task1, 'interval', id='task1_job', minutes=var1, args=[app, db])
 
     try:
         scheduler.start()
@@ -38,17 +43,49 @@ def greetings():
     print('             # - v 1.0 - 2020-07-28 - #')
     print('             ##########################')
 
-def task1(db):
 
+def task1(app, db):
+    with app.app_context():
+        file_name = 'data_export_{0}.xlsx'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        file_path = os.path.join(os.path.curdir, file_name)
+        workbook = xlsxwriter.Workbook(file_path)
+        worksheet = workbook.add_worksheet()
+
+        query = text('SELECT * FROM users')
+        orders = db.session.execute(query)
+
+        index = 1
+
+        column_names = ['ID', 'Name', 'Email', 'Password', 'Role Id', 'Created At', 'Updated At']
+        for i, column_name in enumerate(column_names):
+            cell = '{0}{1}'.format(chr(65 + i), index)
+            worksheet.write(cell, column_name)
+
+        for index, order in enumerate(orders, start=2):
+            print('--------------------NEW ROW--------------------------')
+            for i, value in enumerate(order):
+                cell = '{0}{1}'.format(chr(65 + i), index)
+                worksheet.write(cell, value)
+                print('{0}: {1}'.format(column_names[i], value))
+            print('--------------------END ROW---------------------------')
+            print('--------------------xxxxxxx---------------------------')
+
+        workbook.close()
+        print('job executed!')
+
+def task2(db):
     file_name = 'data_export_{0}.xlsx'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
     file_path = os.path.join(os.path.curdir, file_name)
     workbook = xlsxwriter.Workbook(file_path)
     worksheet = workbook.add_worksheet()
 
+    qs = text('SELECT * FROM users WHERE id = :user_id')
+    orders = db.session.execute(qs, {'user_id': 30})
+
     orders = db.session.execute('SELECT * FROM users;')
-    
+
     index = 1
-    
+
     worksheet.write('A{0}'.format(index),'Id')
     worksheet.write('B{0}'.format(index),'Name')
     worksheet.write('C{0}'.format(index),'Email')
@@ -56,7 +93,7 @@ def task1(db):
     worksheet.write('E{0}'.format(index),'Role Id')
     worksheet.write('F{0}'.format(index),'Created At')
     worksheet.write('G{0}'.format(index),'Updated At')
-    
+
     for order in orders:
         index = index + 1
 
@@ -74,7 +111,7 @@ def task1(db):
         worksheet.write('F{0}'.format(index),order[5])
         print('Updated At: {0}'.format(order[6]))
         worksheet.write('G{0}'.format(index),order[6])
-        
+
     workbook.close()
     print('job executed!')
 

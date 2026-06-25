@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "869fe6f3-9356-4e5a-81ff-9748a9ad5054",
+		"name": "BackEnd Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17545951"
+	},
+	"item": [
+		{
+			"name": "Check ALive",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Role",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/users/123/role",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"123",
+						"role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Wesley Gurgel\",\n    \"email\": \"wesleygurgel2@gmail.com\",\n    \"role\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/users",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:8003",
+			"type": "string"
+		}
+	]
+}

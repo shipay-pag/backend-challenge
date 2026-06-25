@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Arquivo Atual",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${fileDirname}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "PyTest: Arquivo Atual",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "module": "pytest",
+            "args": [
+                "${file}"
+            ],
+            "cwd": "${fileDirname}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        }
+    ]
+}
